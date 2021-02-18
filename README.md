@@ -4,7 +4,7 @@
 Feel free to check out the `Documentation.pdf` file, it consists everything you need to know about the project.
 
 We've also split the main `.sql` file into three:
-* table creation script file: `name1`
+* tables along with foreign keys creation script file: `name1`
 * procedures, triggers, functions and views file: `name2`
 * example and test queries file: `name3`
 
