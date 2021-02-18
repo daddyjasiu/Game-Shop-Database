@@ -3,10 +3,11 @@
 
 Feel free to check out the `Documentation.pdf` file, it consists everything you need to know about the project.
 
-We've also split the `.sql` files into two:
-* table creation script
-* procedures, triggers, functions, views
+We've also split the `.sql` file into two:
+* table creation script file
+* procedures, triggers, functions views and example queries file.
 
-### We hope you will enjoy reading through our project!
+### Please note that the documentation is in Polish.
+## We hope you will enjoy reading through our project!
 
 Creators: [Sou](https://github.com/Sou00), Toshiro, [hi-im-happy](https://github.com/hi-im-happy).
