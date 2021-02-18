@@ -5,7 +5,7 @@ Feel free to check out the `Documentation.pdf` file, it consists everything you 
 
 We've also split the `.sql` file into three:
 * table creation script file
-* procedures, triggers, functions views file
+* procedures, triggers, functions and views file
 * example and test queries file.
 
 ### Please note that the documentation is in Polish.
