@@ -8,3 +8,5 @@ We've also split the `.sql` files into two:
 * procedures, triggers, functions, views
 
 ### We hope you will enjoy reading through our project!
+
+Creators: [Sou](https://github.com/Sou00), [Toshiro]
