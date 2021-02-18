@@ -9,4 +9,4 @@ We've also split the `.sql` files into two:
 
 ### We hope you will enjoy reading through our project!
 
-Creators: [Sou](https://github.com/Sou00), [Toshiro]
+Creators: [Sou](https://github.com/Sou00), Toshiro, [hi-im-happy](https://github.com/hi-im-happy).
