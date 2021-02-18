@@ -3,10 +3,10 @@
 
 Feel free to check out the `Documentation.pdf` file, it consists everything you need to know about the project.
 
-We've also split the `.sql` file into three:
-* table creation script file
-* procedures, triggers, functions and views file
-* example and test queries file.
+We've also split the main `.sql` file into three:
+* table creation script file: `name1`
+* procedures, triggers, functions and views file: `name2`
+* example and test queries file: `name3`
 
 ### Please note that the documentation is in Polish.
 ## We hope you will enjoy reading through our project!
