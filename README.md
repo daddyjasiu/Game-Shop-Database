@@ -7,7 +7,7 @@ We've also split the main `.sql` file into three:
 * tables along with foreign keys creation script file: `name1`
 * procedures, triggers, functions and views file: `name2`
 * example and test queries file: `name3`
-asasdasdsda
+
 ### Please note that the documentation is in Polish.
 ## We hope you will enjoy reading through our project!
 
