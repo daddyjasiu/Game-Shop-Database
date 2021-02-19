@@ -89,8 +89,8 @@ IF OBJECT_ID('dbo.ItemsInWarehouse', 'U') IS NOT NULL
 	DROP TABLE ItemsInWarehouse
 GO
 CREATE TABLE ItemsInWarehouse (
-    ItemId INT NOT NULL,
-	WarehouseId INT NOT NULL,
+    WarehouseId INT NOT NULL,
+	ItemId INT NOT NULL,
 	Quantity INT NOT NULL,
 	PRIMARY KEY (ItemId, WarehouseId)
 )

@@ -1,3 +1,4 @@
+------------------------------------------------------------------------------------------------Sekwencje
 IF OBJECT_ID('ProductSequence', 'SO') IS NOT NULL 
 DROP SEQUENCE ProductSequence
 GO
@@ -30,7 +31,7 @@ DROP FUNCTION MostExpensiveInCategory
 GO
 
 CREATE FUNCTION MostExpensiveInCategory (@Category NVARCHAR(30))
-RETURNS @Output TABLE (Name NVARCHAR(30),Price MONEY)
+RETURNS @Output TABLE (ProductId INT,UnitPrice MONEY)
 AS
 BEGIN 
 		INSERT INTO @Output
@@ -94,10 +95,12 @@ CREATE FUNCTION DateIncome (@Date DATE)
 RETURNS MONEY
 AS
 BEGIN
-		RETURN(SELECT SUM(A.Quantity*A.UnitPrice)  FROM OrderDetails A, Orders B
-		WHERE A.OrderId=B.OrderId AND B.PurchaseDate=@Date)
+		RETURN(SELECT SUM(A.Quantity*A.UnitPrice) FROM OrderDetails A, Orders B
+		WHERE A.OrderId=B.OrderId AND CONVERT(date,B.PurchaseDate) = @Date)
 END
 GO
+
+
 
 -----------------------------------------------------------------------Widoki
 IF OBJECT_ID ('EmployeeNumber','v') IS NOT NULL
@@ -137,7 +140,7 @@ DROP PROCEDURE Additem
 GO
 
 CREATE PROCEDURE AddItem (@Name NVARCHAR(30), @Category NVARCHAR(30), @Description TEXT, @Tag NVARCHAR(30),@PublisherName NVARCHAR(30),
-							@StartDate DATETIME = NULL, @UnitPrice MONEY)
+							@UnitPrice MONEY, @StartDate DATETIME = NULL)
 AS
 				IF ((SELECT TOP 1 A.Name FROM Items A WHERE @Name LIKE A.Name) IS NULL
 				AND (SELECT TOP 1 A.Category FROM ProductCategory A WHERE @Category LIKE A.Category)IS NOT NULL
@@ -147,6 +150,8 @@ AS
 						DECLARE @ItemId INT
 						DECLARE @TagId INT
 						DECLARE @PublisherId INT
+						IF @StartDate IS NULL
+						SET @StartDate = GETDATE()
 						SET @ItemId = NEXT VALUE FOR ProductSequence
 						SET @CategoryId = (SELECT TOP 1 A.CategoryId FROM ProductCategory A WHERE A.Category LIKE @Category)
 						SET @TagId = (SELECT TOP 1 A.TagId FROM PEGIRating A WHERE A.TagName LIKE @Tag)
@@ -173,11 +178,13 @@ AS
 				BEGIN
 						DECLARE @PositionId INT
 						DECLARE @EmployeeId INT
+						IF @HireDate IS NULL 
+						SET @HireDate = GETDATE()
 						SET @PositionId = (SELECT TOP 1 A.PositionId FROM Positions A WHERE A.Name LIKE @Position)
 						SET @EmployeeId = NEXT VALUE FOR EmployeeSequence
 						INSERT INTO Employees
 						VALUES (@EmployeeId,@HireDate, @PositionId, @BossId)
-						INSERT INTO EmployeeContacts
+						INSERT INTO EmployeesContacts
 						VALUES (@EmployeeId,@Name, @Surname, @Email, @Telephone)
 				END
 		
@@ -205,7 +212,7 @@ DROP PROCEDURE AddService
 GO
 
 CREATE PROCEDURE AddService (@Name NVARCHAR(30), @Description TEXT, @Time INT, @Category NVARCHAR(30), @PublisherName NVARCHAR(30), 
-							@StartDate DATETIME= NULL, @UnitPrice MONEY)
+							@UnitPrice MONEY, @StartDate DATETIME= NULL)
 AS
 				IF ((SELECT TOP 1 A.Name FROM Items A WHERE @Name LIKE A.Name) IS NULL
 				AND (SELECT TOP 1 A.Category FROM ProductCategory A WHERE @Category LIKE A.Category)IS NOT NULL)
@@ -213,6 +220,8 @@ AS
 						DECLARE @ServiceId INT
 						DECLARE @CategoryId INT
 						DECLARE @PublisherId INT
+						IF @StartDate IS NULL
+						SET @StartDate = GETDATE()
 						SET @ServiceId = NEXT VALUE FOR ProductSequence
 						SET @CategoryId = (SELECT TOP 1 A.CategoryId FROM ProductCategory A WHERE A.Category LIKE @Category)
 						SET @PublisherId = (SELECT TOP 1 A.PublisherId FROM Publishers A WHERE A.PublisherName LIKE @PublisherName)
@@ -247,7 +256,7 @@ AS
 						ELSE
 						BEGIN
 							INSERT INTO ItemsInWarehouse
-							VALUES (@ItemId, @WarehouseId, @Quantity)
+							VALUES (@WarehouseId, @ItemId, @Quantity)
 						END						
 				END
 		
@@ -298,7 +307,7 @@ GO
 CREATE TRIGGER DeleteEmployee ON Employees
 INSTEAD OF DELETE 
 AS 
-	DELETE FROM EmployeeContacts
+	DELETE FROM EmployeesContacts
 	WHERE EmployeeId IN (SELECT EmployeeId FROM DELETED)
 	DELETE FROM Employees
 	WHERE EmployeeId IN (SELECT EmployeeId FROM DELETED)
@@ -311,7 +320,7 @@ GO
 CREATE TRIGGER DeleteWarehouse ON Warehouses
 INSTEAD OF DELETE 
 AS 
-	DELETE FROM ItemsInWarehouses
+	DELETE FROM ItemsInWarehouse
 	WHERE WarehouseId IN (SELECT WarehouseId FROM DELETED)
 	DELETE FROM Warehouses
 	WHERE WarehouseId IN (SELECT WarehouseId FROM DELETED)
