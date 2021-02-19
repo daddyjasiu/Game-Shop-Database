@@ -4,9 +4,9 @@
 Feel free to check out the `Documentation.pdf` file, it consists everything you need to know about the project.
 
 We've also split the main `.sql` file into three:
-* tables along with foreign keys creation script file: `name1`
-* procedures, triggers, functions and views file: `name2`
-* example and test queries file: `name3`
+* tables along with foreign keys creation script file: `Tabele.sql`
+* procedures, triggers, functions and views file: `Funkcje.sql`
+* example and test queries file: `Query.sql`
 
 ### Please note that the documentation is in Polish.
 
