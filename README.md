@@ -6,7 +6,7 @@ Feel free to check out the `Documentation.pdf` file, it consists everything you 
 We've also split the main `.sql` file into three:
 * tables along with foreign keys creation script file: `Tabele.sql`
 * procedures, triggers, functions and views file: `Funkcje.sql`
-* example and test queries file: `Query.sql`
+* example and test queries file: `Input.sql`
 
 ### Please note that the documentation is in Polish.
 
